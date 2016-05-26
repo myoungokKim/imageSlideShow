@@ -7,15 +7,18 @@ import android.widget.*;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     ViewFlipper flip;
+    int time;
+    EditText editTime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        editTime=(EditText)findViewById(R.id.edit_time);
         flip=(ViewFlipper)findViewById(R.id.view_flip);
-        flip.setFlipInterval(1000);
+        editTime.setOnClickListener(this);
         Button butStart=(Button)findViewById(R.id.but_start);
-        Button butStop=(Button)findViewById(R.id.but_stop);
         butStart.setOnClickListener(this);
+        Button butStop=(Button)findViewById(R.id.but_stop);
         butStop.setOnClickListener(this);
     }
 
@@ -28,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.but_start:
+                time=(int)(Double.parseDouble(editTime.getText().toString())*1000);
+                flip.setFlipInterval(time);
                 flip.startFlipping();
                 break;
             case R.id.but_stop:
